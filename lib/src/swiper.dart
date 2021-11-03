@@ -23,7 +23,7 @@ const int kDefaultAutoplayTransactionDuration = 300;
 const int kMaxValue = 2000000000;
 const int kMiddleValue = 1000000000;
 
-enum SwiperLayout { DEFAULT, STACK, TINDER, CUSTOM }
+enum SwiperLayout { DEFAULT, STACK,STACK_RIGHT, TINDER, CUSTOM }
 
 class Swiper extends StatefulWidget {
   /// If set true , the pagination will display 'outer' of the 'content' container.
@@ -469,7 +469,7 @@ class _SwiperState extends _SwiperTimerMixin {
       itemBuilder = widget.itemBuilder;
     }
 
-    if (widget.layout == SwiperLayout.STACK) {
+    if (widget.layout == SwiperLayout.STACK || widget.layout == SwiperLayout.STACK_RIGHT) {
       return new _StackSwiper(
         loop: widget.loop,
         itemWidth: widget.itemWidth,
@@ -724,6 +724,9 @@ class _TinderSwiper extends _SubSwiper {
 }
 
 class _StackSwiper extends _SubSwiper {
+  
+  
+  
   _StackSwiper({
     Key? key,
     Curve curve = Curves.linear,
@@ -898,7 +901,7 @@ class _StackViewState extends _CustomLayoutStateBase<_StackSwiper> {
     double o = _getValue(opacity, animationValue, i);
 
     Offset offset = widget.scrollDirection == Axis.horizontal
-        ? new Offset(f, 0.0)
+        ? new Offset(-f, 0.0)
         : new Offset(0.0, f);
 
     Alignment alignment = widget.scrollDirection == Axis.horizontal
